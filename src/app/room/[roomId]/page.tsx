@@ -52,11 +52,11 @@ function AppShell({ roomId }: { roomId: string }) {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[var(--bg-primary)]">
-      <Toolbar />
-      <Sidebar />
       <ChatBot />
+      <Sidebar />
+      <Toolbar />
 
-      <div className="flex h-screen w-screen flex-col pl-0">
+      <div className="flex h-screen w-screen flex-col">
         <Navbar />
 
         <div className="flex flex-1 overflow-hidden">

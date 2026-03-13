@@ -9,88 +9,89 @@ import { useRooms } from "@/hooks/useRooms";
 import { useAuth } from "@/context/AuthContext";
 
 const S = {
-  layout: { display: "flex", minHeight: "100vh", background: "#f5f6fa", fontFamily: "'Inter', sans-serif" },
+  layout: { display: "flex", minHeight: "100vh", background: "var(--bg-primary)", fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" },
   main: { marginLeft: 220, flex: 1, display: "flex", flexDirection: "column" },
   hero: {
-    background: "linear-gradient(135deg, #eef0ff 0%, #f0eaff 100%)",
-    padding: "40px 40px 32px", borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "#e0e0f0", position: "relative", overflow: "hidden",
+    background: "linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%)",
+    padding: "60px 40px 48px", borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "var(--border)", position: "relative", overflow: "hidden",
   },
   heroBg: {
-    position: "absolute", top: -80, right: -80, width: 300, height: 300,
-    background: "radial-gradient(circle, rgba(59,59,255,0.08) 0%, transparent 70%)", pointerEvents: "none",
+    position: "absolute", top: -80, right: -80, width: 400, height: 400,
+    background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)", pointerEvents: "none",
   },
   heroTitle: {
-    fontWeight: 800, fontSize: 36,
-    color: "#0a0a1a", marginBottom: 20, lineHeight: 1.15, maxWidth: 600, position: "relative",
-    letterSpacing: "-0.02em",
+    fontWeight: 800, fontSize: 42,
+    color: "var(--text-primary)", marginBottom: 24, lineHeight: 1.1, maxWidth: 650, position: "relative",
+    letterSpacing: "-0.03em",
   },
   searchBar: {
-    display: "flex", alignItems: "center", background: "#fff", borderRadius: 12,
-    padding: "12px 20px", gap: 12, maxWidth: 560, borderWidth: "1px", borderStyle: "solid", borderColor: "#e0e0f0",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.06)", marginBottom: 16, position: "relative",
+    display: "flex", alignItems: "center", background: "var(--bg-secondary)", borderRadius: 16,
+    padding: "14px 24px", gap: 14, maxWidth: 600, borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)",
+    boxShadow: "0 8px 30px rgba(0,0,0,0.04)", marginBottom: 20, position: "relative",
   },
-  searchInput: { flex: 1, border: "none", outline: "none", fontSize: 15, color: "#0a0a1a", background: "transparent", fontFamily: "'Inter', sans-serif" },
-  heroActions: { display: "flex", gap: 10, position: "relative" },
+  searchInput: { flex: 1, border: "none", outline: "none", fontSize: 16, color: "var(--text-primary)", background: "transparent", fontFamily: "inherit" },
+  heroActions: { display: "flex", gap: 12, position: "relative" },
   btnPrimary: {
-    padding: "11px 22px", background: "linear-gradient(135deg, #3b3bff, #7b5cff)",
-    color: "#fff", border: "none", borderRadius: 9, fontWeight: 600, fontSize: 14,
-    cursor: "pointer", fontFamily: "'Inter', sans-serif", boxShadow: "0 4px 16px rgba(59,59,255,0.3)",
+    padding: "12px 26px", background: "linear-gradient(135deg, var(--accent), var(--accent-light))",
+    color: "#fff", border: "none", borderRadius: 12, fontWeight: 700, fontSize: 15,
+    cursor: "pointer", fontFamily: "inherit", boxShadow: "0 4px 20px var(--accent-glow)", transition: "all 0.2s"
   },
   btnOutline: {
-    padding: "11px 22px", background: "#fff", color: "#0a0a1a",
-    borderWidth: "1px", borderStyle: "solid", borderColor: "#ddd", borderRadius: 9, fontWeight: 500, fontSize: 14,
-    cursor: "pointer", fontFamily: "'Inter', sans-serif",
+    padding: "12px 26px", background: "var(--bg-secondary)", color: "var(--text-primary)",
+    borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)", borderRadius: 12, fontWeight: 600, fontSize: 15,
+    cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s"
   },
-  content: { flex: 1, padding: "28px 40px", display: "flex", gap: 24 },
+  content: { flex: 1, padding: "32px 40px", display: "flex", gap: 28 },
   mainCol: { flex: 1 },
-  rightCol: { width: 260, flexShrink: 0 },
-  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 },
-  sectionTitle: { fontWeight: 700, fontSize: 18, color: "#0a0a1a" },
-  sortRow: { display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#555" },
+  rightCol: { width: 280, flexShrink: 0, display: "flex", flexDirection: "column" as const, gap: 24 },
+  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 },
+  sectionTitle: { fontWeight: 800, fontSize: 22, color: "var(--text-primary)", letterSpacing: "-0.01em" },
+  sortRow: { display: "flex", alignItems: "center", gap: 10, fontSize: 15, color: "var(--text-secondary)", fontWeight: 500 },
   sortSelect: {
-    border: "none", background: "transparent", color: "#3b3bff", fontWeight: 600,
-    fontSize: 14, cursor: "pointer", outline: "none", fontFamily: "'Inter', sans-serif",
+    border: "none", background: "transparent", color: "var(--accent)", fontWeight: 700,
+    fontSize: 15, cursor: "pointer", outline: "none", fontFamily: "inherit",
   },
-  catFilters: { display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 },
+  catFilters: { display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 },
   catBtn: (active: boolean) => ({
-    padding: "6px 14px", borderRadius: 20,
-    borderWidth: active ? "0" : "1px", borderStyle: "solid", borderColor: active ? "transparent" : "#e0e0f0",
-    background: active ? "linear-gradient(135deg, #3b3bff, #7b5cff)" : "#fff",
-    color: active ? "#fff" : "#555", fontWeight: active ? 700 : 500,
-    fontSize: 12, cursor: "pointer", fontFamily: "'Inter', sans-serif", transition: "all 0.15s",
+    padding: "8px 18px", borderRadius: 24,
+    borderWidth: "1.5px", borderStyle: "solid", borderColor: active ? "var(--accent)" : "var(--border)",
+    background: active ? "var(--accent)" : "var(--bg-secondary)",
+    color: active ? "#fff" : "var(--text-secondary)", fontWeight: active ? 700 : 600,
+    fontSize: 13, cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s",
+    boxShadow: active ? "0 4px 12px var(--accent-glow)" : "none",
   } as const),
-  roomsGrid: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 28 },
+  roomsGrid: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 32 },
   roomCard: {
-    background: "#fff", borderRadius: 14, padding: 18, borderWidth: "1px", borderStyle: "solid", borderColor: "#eaeaf0",
-    cursor: "pointer", transition: "box-shadow 0.2s",
+    background: "var(--bg-card)", borderRadius: 18, padding: 22, borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)",
+    cursor: "pointer", transition: "all 0.2s", boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
   },
-  roomCardTop: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
-  catBadge: (color: string) => ({ fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const, color, padding: "3px 8px", background: color + "15", borderRadius: 20 }),
-  aiScore: { display: "flex", alignItems: "center", gap: 4, background: "rgba(255,190,0,0.1)", padding: "3px 8px", borderRadius: 20, fontSize: 11, fontWeight: 700, color: "#c8900a" },
-  roomTitle: { fontWeight: 700, fontSize: 15, color: "#0a0a1a", marginBottom: 5, lineHeight: 1.3 },
-  roomDesc: { fontSize: 12, color: "#888", lineHeight: 1.5, marginBottom: 12, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" as const },
-  roomMeta: { display: "flex", gap: 12, fontSize: 12, color: "#888", marginBottom: 12 },
-  roomActions: { display: "flex", gap: 8 },
-  btnEnter: { flex: 1, padding: "8px", background: "linear-gradient(135deg, #3b3bff, #7b5cff)", color: "#fff", border: "none", borderRadius: 8, fontWeight: 600, fontSize: 12, cursor: "pointer", fontFamily: "'Inter', sans-serif" },
-  btnDetails: { padding: "8px 12px", background: "#f5f5fa", color: "#555", borderWidth: "1px", borderStyle: "solid", borderColor: "#eaeaf0", borderRadius: 8, fontWeight: 500, fontSize: 12, cursor: "pointer", fontFamily: "'Inter', sans-serif" },
-  trendLabel: { display: "flex", alignItems: "center", gap: 8, fontWeight: 700, fontSize: 18, color: "#0a0a1a", marginBottom: 14 },
-  ideaCard: { background: "#fff", borderRadius: 12, padding: 16, borderWidth: "1px", borderStyle: "solid", borderColor: "#eaeaf0", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 },
-  ideaItem: { borderRightWidth: "1px", borderRightStyle: "solid", borderRightColor: "#f0f0f8", paddingRight: 10 },
-  ideaCat: { fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", color: "#3b3bff", textTransform: "uppercase" as const, marginBottom: 3 },
-  ideaTitle: { fontSize: 13, fontWeight: 700, color: "#0a0a1a", marginBottom: 4 },
-  ideaAuthor: { display: "flex", alignItems: "center", gap: 5, fontSize: 11, color: "#888" },
-  miniAvatar: { width: 18, height: 18, borderRadius: "50%", background: "linear-gradient(135deg, #aaa, #ccc)" },
-  filterPanel: { background: "#fff", borderRadius: 14, padding: 18, borderWidth: "1px", borderStyle: "solid", borderColor: "#eaeaf0", marginBottom: 14 },
-  filterTitle: { fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: "#888", textTransform: "uppercase" as const, marginBottom: 10 },
-  filterLabel: { display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#333", marginBottom: 7, cursor: "pointer" },
-  checkBox: (on: boolean) => ({ width: 15, height: 15, borderRadius: 4, border: on ? "none" : "2px solid #ddd", background: on ? "#3b3bff" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } as const),
-  newsCard: { background: "#fff", borderRadius: 12, padding: 16, borderWidth: "1px", borderStyle: "solid", borderColor: "#eaeaf0" },
-  newsTitle: { fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: "#888", textTransform: "uppercase" as const, marginBottom: 12 },
-  newsItem: { paddingBottom: 10, marginBottom: 10, borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "#f0f0f8" },
-  newsLabel: { fontSize: 10, fontWeight: 700, color: "#3b3bff", letterSpacing: "0.06em", textTransform: "uppercase" as const, marginBottom: 2 },
-  newsItemTitle: { fontSize: 13, fontWeight: 600, color: "#0a0a1a", lineHeight: 1.4, marginBottom: 2 },
-  newsTime: { fontSize: 11, color: "#bbb" },
-  emptyState: { textAlign: "center", padding: "40px 0", color: "#bbb", gridColumn: "1 / -1" } as const,
+  roomCardTop: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 },
+  catBadge: (color: string) => ({ fontSize: 11, fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase" as const, color, padding: "4px 10px", background: color + "20", borderRadius: 20 }),
+  aiScore: { display: "flex", alignItems: "center", gap: 5, background: "rgba(255,190,0,0.15)", padding: "4px 10px", borderRadius: 20, fontSize: 12, fontWeight: 800, color: "#b68305" },
+  roomTitle: { fontWeight: 800, fontSize: 18, color: "var(--text-primary)", marginBottom: 8, lineHeight: 1.25 },
+  roomDesc: { fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 16, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" as const },
+  roomMeta: { display: "flex", gap: 16, fontSize: 13, color: "var(--text-muted)", marginBottom: 18, fontWeight: 500 },
+  roomActions: { display: "flex", gap: 10 },
+  btnEnter: { flex: 1, padding: "10px", background: "linear-gradient(135deg, var(--accent), var(--accent-light))", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s" },
+  btnDetails: { padding: "10px 14px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)", borderRadius: 10, fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "inherit" },
+  trendLabel: { display: "flex", alignItems: "center", gap: 10, fontWeight: 800, fontSize: 20, color: "var(--text-primary)", marginBottom: 18 },
+  ideaCard: { background: "var(--bg-card)", borderRadius: 16, padding: 20, borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.02)" },
+  ideaItem: { borderRightWidth: "1px", borderRightStyle: "solid", borderRightColor: "var(--border)", paddingRight: 16 },
+  ideaCat: { fontSize: 11, fontWeight: 800, letterSpacing: "0.06em", color: "var(--accent)", textTransform: "uppercase" as const, marginBottom: 4 },
+  ideaTitle: { fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 6, lineHeight: 1.3 },
+  ideaAuthor: { display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--text-muted)", fontWeight: 500 },
+  miniAvatar: { width: 22, height: 22, borderRadius: "50%", background: "linear-gradient(135deg, var(--accent-light), var(--accent))", opacity: 0.8 },
+  filterPanel: { background: "var(--bg-card)", borderRadius: 18, padding: 22, borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" },
+  filterTitle: { fontSize: 12, fontWeight: 800, letterSpacing: "0.1em", color: "var(--text-muted)", textTransform: "uppercase" as const, marginBottom: 16 },
+  filterLabel: { display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: "var(--text-secondary)", marginBottom: 10, cursor: "pointer", fontWeight: 600, transition: "color 0.2s" },
+  checkBox: (on: boolean) => ({ width: 18, height: 18, borderRadius: 6, border: on ? "none" : "2px solid var(--border)", background: on ? "var(--accent)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 } as const),
+  newsCard: { background: "var(--bg-card)", borderRadius: 18, padding: 22, borderWidth: "1.5px", borderStyle: "solid", borderColor: "var(--border)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" },
+  newsTitle: { fontSize: 12, fontWeight: 800, letterSpacing: "0.1em", color: "var(--text-muted)", textTransform: "uppercase" as const, marginBottom: 16 },
+  newsItem: { paddingBottom: 14, marginBottom: 14, borderBottomWidth: "1.5px", borderBottomStyle: "solid", borderBottomColor: "var(--border)" },
+  newsLabel: { fontSize: 11, fontWeight: 800, color: "var(--accent)", letterSpacing: "0.06em", textTransform: "uppercase" as const, marginBottom: 4 },
+  newsItemTitle: { fontSize: 14, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.5, marginBottom: 4 },
+  newsTime: { fontSize: 12, color: "var(--text-muted)", fontWeight: 500 },
+  emptyState: { textAlign: "center", padding: "60px 0", color: "var(--text-muted)", gridColumn: "1 / -1", fontSize: 16, fontWeight: 500 } as const,
 } as const;
 
 const TRENDING = [
@@ -142,7 +143,7 @@ export default function DashboardPage() {
           <div style={S.heroBg} />
           <h1 style={S.heroTitle}>Hello, what do you want to brainstorm today?</h1>
           <div style={S.searchBar}>
-            <span style={{ fontSize: 16 }}>🔍</span>
+            <span style={{ fontSize: 18, color: "var(--text-muted)" }}>🔍</span>
             <input style={S.searchInput} placeholder="Enter a room name or topic to start..." value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <div style={S.heroActions}>
@@ -153,7 +154,7 @@ export default function DashboardPage() {
         </div>
 
         <div style={S.content}>
-          <div style={S.mainCol}>
+          <div style={{ ...S.mainCol, maxWidth: 1200 }}>
             <div style={S.sectionHeader}>
               <div style={S.sectionTitle}>Featured Discovery Rooms</div>
               <div style={S.sortRow}>
@@ -166,75 +167,77 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div style={S.catFilters}>
-              {CATEGORIES.map((c: string) => (
-                <button key={c} style={S.catBtn(activeCat === c)} onClick={() => setActiveCat(c)}>{c}</button>
-              ))}
-            </div>
-
-            <div style={S.roomsGrid}>
-              {roomsLoading ? (
-                <div style={S.emptyState}>Loading rooms...</div>
-              ) : filtered.length === 0 ? (
-                <div style={S.emptyState}>No rooms match your search.</div>
-              ) : filtered.map((r) => (
-                <div key={r.id} style={S.roomCard} onClick={() => router.push(`/room/${r.id}`)}>
-                  <div style={S.roomCardTop}>
-                    <span style={S.catBadge(r.catColor)}>{r.cat}</span>
-                    <span style={S.aiScore}>⚡ {r.score} AI Score</span>
-                  </div>
-                  <div style={S.roomTitle}>{r.title}</div>
-                  <div style={S.roomDesc}>{r.description}</div>
-                  <div style={S.roomMeta}>
-                    <span>👥 {r.participants} Participants</span>
-                    <span>💡 {r.ideas} Ideas</span>
-                  </div>
-                  <div style={S.roomActions}>
-                    <button style={S.btnEnter} onClick={(e) => { e.stopPropagation(); router.push(`/room/${r.id}`); }}>Enter Room</button>
-                    <button style={S.btnDetails} onClick={(e) => { e.stopPropagation(); }}>Details</button>
-                  </div>
+            <div style={{ display: "flex", gap: 24, marginBottom: 24 }}>
+              <div style={{ flex: 1 }}>
+                <div style={S.catFilters}>
+                  {CATEGORIES.map((c: string) => (
+                    <button key={c} style={S.catBtn(activeCat === c)} onClick={() => setActiveCat(c)}>{c}</button>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div>
-              <div style={S.trendLabel}>
-                <span>📈</span> Trending Ideas
-                <span style={{ marginLeft: "auto", fontSize: 13, color: "#3b3bff", cursor: "pointer", fontWeight: 600 }}>View all ideas →</span>
-              </div>
-              <div style={S.ideaCard}>
-                {TRENDING.map((t, i) => (
-                  <div key={t.title} style={i < 2 ? S.ideaItem : {}}>
-                    <div style={S.ideaCat}>{t.cat}</div>
-                    <div style={S.ideaTitle}>{t.title}</div>
-                    <div style={S.ideaAuthor}><div style={S.miniAvatar} /> by {t.author}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div style={S.rightCol}>
-            <div style={S.filterPanel}>
-              <div style={S.filterTitle}>Quick Access</div>
-              {CATEGORIES.slice(0, 5).map((c: string, i: number) => (
-                <label key={c} style={S.filterLabel} onClick={() => setActiveCat(c)}>
-                  <div style={S.checkBox(activeCat === c || (activeCat === "All" && i === 0))}>
-                    {(activeCat === c || (activeCat === "All" && i === 0)) && <span style={{ color: "#fff", fontSize: 9 }}>✓</span>}
-                  </div>
-                  {c}
-                </label>
-              ))}
-            </div>
-            <div style={S.newsCard}>
-              <div style={S.newsTitle}>Latest Market Data</div>
-              {NEWS.map((n, i) => (
-                <div key={n.title} style={i < NEWS.length - 1 ? S.newsItem : {}}>
-                  <div style={S.newsLabel}>{n.label}</div>
-                  <div style={S.newsItemTitle}>{n.title}</div>
-                  <div style={S.newsTime}>{n.time}</div>
+                <div style={{ display: "flex", gap: 12, marginBottom: 20, overflowX: "auto", paddingBottom: 8 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", alignSelf: "center", marginRight: 8 }}>Quick Access:</div>
+                  {CATEGORIES.slice(0, 5).map((c: string) => (
+                    <button
+                      key={c}
+                      onClick={() => setActiveCat(c)}
+                      style={{
+                        padding: "6px 12px", borderRadius: 12, fontSize: 12, fontWeight: 600,
+                        background: activeCat === c ? "var(--accent-glow)" : "var(--bg-tertiary)",
+                        color: activeCat === c ? "var(--accent)" : "var(--text-secondary)",
+                        border: activeCat === c ? "1px solid var(--accent)" : "1px solid var(--border)",
+                        cursor: "pointer", transition: "all 0.2s"
+                      }}
+                    >
+                      {c}
+                    </button>
+                  ))}
                 </div>
-              ))}
+
+                <div style={S.roomsGrid}>
+                  {roomsLoading ? (
+                    <div style={S.emptyState}>Loading rooms...</div>
+                  ) : filtered.length === 0 ? (
+                    <div style={S.emptyState}>No rooms match your search.</div>
+                  ) : filtered.map((r) => (
+                    <div key={r.id} style={S.roomCard} onClick={() => router.push(`/room/${r.id}`)}>
+                      <div style={S.roomCardTop}>
+                        <span style={S.catBadge(r.catColor)}>{r.cat}</span>
+                        <span style={S.aiScore}>⚡ {r.score} AI Score</span>
+                      </div>
+                      <div style={S.roomTitle}>{r.title}</div>
+                      <div style={S.roomDesc}>{r.description}</div>
+                      <div style={S.roomMeta}>
+                        <span>👥 {r.participants} Participants</span>
+                        <span>💡 {r.ideas} Ideas</span>
+                      </div>
+                      <div style={S.roomActions}>
+                        <button style={S.btnEnter} onClick={(e) => { e.stopPropagation(); router.push(`/room/${r.id}`); }}>Enter Room</button>
+                        <button style={S.btnDetails} onClick={(e) => { e.stopPropagation(); }}>Details</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={S.trendLabel}>
+                  <span style={{ color: "var(--accent)" }}>📈</span> Trending Ideas
+                  <span style={{ marginLeft: "auto", fontSize: 14, color: "var(--accent)", cursor: "pointer", fontWeight: 700 }}>View all ideas →</span>
+                </div>
+                <div style={S.ideaCard}>
+                  {TRENDING.map((t, i) => (
+                    <div key={t.title} style={i < 2 ? S.ideaItem : {}}>
+                      <div style={S.ideaCat}>{t.cat}</div>
+                      <div style={S.ideaTitle}>{t.title}</div>
+                      <div style={S.ideaAuthor}><div style={S.miniAvatar} /> by {t.author}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick Links Integrated into Sidebar or Filter Row */}
+              <div style={{ width: 240, flexShrink: 0, display: "none" }}>
+                {/* Hidden to focus content left */}
+              </div>
             </div>
           </div>
         </div>

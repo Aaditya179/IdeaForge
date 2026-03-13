@@ -139,19 +139,19 @@ export default function ChatBot() {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed right-6 top-24 bottom-6 w-[340px] z-40 flex flex-col rounded-3xl bg-[var(--bg-card)] shadow-2xl border border-[var(--border)] overflow-hidden"
+          className="fixed right-6 top-24 bottom-6 w-[360px] z-40 flex flex-col rounded-3xl bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl border border-[var(--border)] overflow-hidden"
         >
           {/* Header */}
-          <div className="p-4 border-b border-[var(--border)] flex items-center justify-between bg-[var(--bg-secondary)]">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent-glow)] text-[var(--accent)] border border-[var(--accent)]/10">
-                <SparkIcon />
+          <div className="p-5 border-b border-[var(--border)] flex items-center justify-between bg-[var(--bg-secondary)]/50">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] text-[var(--accent)] border border-[var(--accent)]/20 shadow-sm">
+                <SparkIcon className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[var(--text-primary)] tracking-tight">IdeaForge Intelligence</h3>
+                <h3 className="text-[15px] font-bold text-[var(--text-primary)] tracking-tight">IdeaForge Intelligence</h3>
                 <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] text-[var(--text-muted)] font-semibold uppercase tracking-wider">Ready to spark</span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[11px] text-[var(--text-muted)] font-bold uppercase tracking-wider">Ready to spark</span>
                 </div>
               </div>
             </div>
@@ -159,24 +159,24 @@ export default function ChatBot() {
               onClick={toggleChat}
               className="p-2 hover:bg-[var(--bg-hover)] rounded-xl text-[var(--text-muted)] transition-all hover:scale-105"
             >
-              <X size={18} />
+              <X size={20} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-6">
+          <div className="flex-1 overflow-y-auto p-5 space-y-6 scroll-smooth">
             {messages.map((msg, i) => (
               <div key={i} className={cn("flex gap-3.5", msg.role === "user" ? "flex-row-reverse" : "")}>
                 <div className={cn(
-                  "h-8.5 w-8.5 rounded-[12px] flex items-center justify-center flex-shrink-0 border",
+                  "h-9 w-9 rounded-[12px] flex items-center justify-center flex-shrink-0 border shadow-sm",
                   msg.role === "user" ? "bg-[var(--bg-tertiary)] border-[var(--border)]" : "bg-[var(--accent-glow)] border-[var(--accent)]/10 text-[var(--accent)]"
                 )}>
-                  {msg.role === "user" ? <User size={16} className="text-[var(--text-secondary)]" /> : <SparkIcon className="w-4.5 h-4.5" />}
+                  {msg.role === "user" ? <User size={18} className="text-[var(--text-secondary)]" /> : <SparkIcon className="w-5 h-5" />}
                 </div>
                 <div className={cn(
-                  "p-4 rounded-[14px] text-[13px] leading-[1.6] max-w-[80%]",
+                  "p-4 rounded-[16px] text-[14px] leading-[1.6] max-w-[85%] shadow-sm transition-all",
                   msg.role === "user"
-                    ? "bg-[#4F46E5] text-white rounded-tr-none shadow-[0_4px_12px_rgba(79,70,229,0.2)]"
+                    ? "bg-[var(--accent)] text-white rounded-tr-none shadow-[0_4px_12px_var(--accent-glow)]"
                     : "bg-[var(--bg-tertiary)] text-[var(--text-primary)] rounded-tl-none border border-[var(--border)]"
                 )}>
                   {msg.content}
@@ -184,18 +184,18 @@ export default function ChatBot() {
               </div>
             ))}
             {loading && (
-              <div className="flex gap-3.5">
-                <div className="h-8.5 w-8.5 rounded-[12px] bg-[var(--accent-glow)] border border-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">
-                  <SparkIcon className="w-4.5 h-4.5" />
+              <div className="flex gap-3.5 animation-pulse">
+                <div className="h-9 w-9 rounded-[12px] bg-[var(--accent-glow)] border border-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">
+                  <SparkIcon className="w-5 h-5" />
                 </div>
-                <div className="bg-[var(--bg-tertiary)] border border-[var(--border)] p-4 rounded-[14px] rounded-tl-none">
-                  <div className="flex gap-1.5">
+                <div className="bg-[var(--bg-tertiary)] border border-[var(--border)] p-4 rounded-[16px] rounded-tl-none">
+                  <div className="flex gap-2">
                     {[0, 1, 2].map(i => (
                       <motion.div
                         key={i}
-                        animate={{ opacity: [0.3, 1, 0.3] }}
-                        transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }}
-                        className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"
+                        animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.2, 1] }}
+                        transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.2 }}
+                        className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"
                       />
                     ))}
                   </div>
@@ -206,14 +206,14 @@ export default function ChatBot() {
           </div>
 
           {/* Input Panel Refactored to match provided CSS */}
-          <div className="p-6 pt-2 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
+          <div className="p-6 pt-2 border-t border-[var(--border)] bg-[var(--bg-secondary)]/80 backdrop-blur-sm">
             {/* Suggestion Chips */}
-            <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+            <div className="flex gap-2.5 overflow-x-auto pb-4 no-scrollbar">
               {SUGGESTIONS.map((s, i) => (
                 <button
                   key={i}
                   onClick={() => handleSend(s.prompt)}
-                  className="whitespace-nowrap px-3.5 py-1.5 rounded-full text-[12.5px] font-medium bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[#EEF2FF] hover:border-[#C7D2FE] hover:text-[#4F46E5] transition-all flex-shrink-0"
+                  className="whitespace-nowrap px-4 py-2 rounded-full text-[13px] font-semibold bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--accent-glow)] hover:border-[var(--accent)]/30 hover:text-[var(--accent)] transition-all flex-shrink-0 shadow-sm"
                 >
                   {s.label}
                 </button>
@@ -221,11 +221,11 @@ export default function ChatBot() {
             </div>
 
             <div className={cn(
-              "rounded-[14px] border-[1.5px] transition-all duration-200 bg-[#FAFAFA] dark:bg-[var(--bg-tertiary)]",
-              inputFocused ? "border-[#6366F1] bg-white ring-[3px] ring-[#6366F1]/10" : "border-[var(--border)]"
+              "rounded-[18px] border-[1.5px] transition-all duration-300 bg-[var(--bg-tertiary)]/50 overflow-hidden",
+              inputFocused ? "border-[var(--accent)] bg-[var(--bg-secondary)] ring-[4px] ring-[var(--accent-glow)] shadow-lg" : "border-[var(--border)]"
             )}>
               <textarea
-                className="w-full bg-transparent p-4 text-[14px] outline-none text-[#111827] dark:text-[var(--text-primary)] placeholder-[#9CA3AF] resize-none leading-[1.6] min-h-[72px]"
+                className="w-full bg-transparent p-4 text-[14.5px] outline-none text-[var(--text-primary)] placeholder-[var(--text-muted)] resize-none leading-[1.6] min-h-[85px]"
                 placeholder="Describe your innovation goal..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -233,10 +233,10 @@ export default function ChatBot() {
                 onFocus={() => setInputFocused(true)}
                 onBlur={() => setInputFocused(false)}
               />
-              <div className="flex items-center justify-end px-3 pb-3">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-end px-4 pb-4">
+                <div className="flex items-center gap-4">
                   {input.length > 0 && (
-                    <span className="text-[11px] text-[#9CA3AF] font-medium hidden sm:block">
+                    <span className="text-[11px] text-[var(--text-muted)] font-bold hidden sm:block uppercase tracking-widest">
                       ⌘ + Enter
                     </span>
                   )}
@@ -244,10 +244,10 @@ export default function ChatBot() {
                     onClick={() => handleSend()}
                     disabled={!input.trim() || loading}
                     className={cn(
-                      "w-[34px] h-[34px] flex items-center justify-center rounded-[10px] transition-all",
+                      "w-[38px] h-[38px] flex items-center justify-center rounded-[12px] transition-all transform active:scale-95",
                       input.trim()
-                        ? "bg-[#4F46E5] text-white shadow-[0_3px_12px_rgba(79,70,229,0.35)] hover:scale-[1.06] hover:bg-[#4338CA]"
-                        : "bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed"
+                        ? "bg-[var(--accent)] text-white shadow-[0_4px_16px_var(--accent-glow)] hover:scale-[1.08] hover:shadow-[0_6px_20px_var(--accent-glow)]"
+                        : "bg-[var(--bg-tertiary)] text-[var(--text-muted)] cursor-not-allowed opacity-50"
                     )}
                   >
                     <SendIcon />

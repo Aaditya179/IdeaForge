@@ -20,6 +20,7 @@ Description: ${description}
 Respond in the following JSON format exactly:
 {
   "problemStatement": "A clear description of the problem",
+  "solution": "A detailed high-level implementation strategy or specific solution for this idea",
   "targetUsers": ["User segment 1", "User segment 2"],
   "possibleFeatures": ["Feature 1", "Feature 2"],
   "businessModel": "Description of the business model"

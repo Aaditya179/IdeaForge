@@ -4,6 +4,7 @@ import { supabase, type IdeaWithVotes, type ProfileRow } from "./supabase";
 /* ─── AI Expansion result ─── */
 export type AiExpansion = {
   problemStatement: string;
+  solution: string;
   targetUsers: string[];
   possibleFeatures: string[];
   businessModel: string;
@@ -526,7 +527,7 @@ export const useIdeaStore = create<IdeaStore>((set, get) => ({
       return;
     }
 
-    const posX = partial.position?.x ?? 150 + Math.random() * 400;
+    const posX = partial.position?.x ?? 400 + Math.random() * 400;
     const posY = partial.position?.y ?? 150 + Math.random() * 300;
     const user = get().user;
 

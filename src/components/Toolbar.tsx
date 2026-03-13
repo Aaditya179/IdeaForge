@@ -68,10 +68,21 @@ export default function Toolbar() {
       id: "attach", icon: Plus, label: "Attach", onClick: () => {
         const input = document.createElement('input');
         input.type = 'file';
-        input.onchange = (e: any) => {
+        input.accept = 'image/*';
+        input.onchange = async (e: any) => {
           const file = e.target.files?.[0];
           if (file && tldrawEditor) {
-            console.log("File selected:", file.name);
+            try {
+              // Use tldraw's external content API to drop the file onto the canvas
+              await tldrawEditor.putExternalContent({
+                type: 'files',
+                files: [file],
+                point: tldrawEditor.getViewportPageBounds().center,
+                ignoreParent: false,
+              });
+            } catch (err) {
+              console.error("Failed to attach file:", err);
+            }
           }
         };
         input.click();
@@ -81,7 +92,10 @@ export default function Toolbar() {
   ];
 
   return (
-    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
+    <div className={cn(
+      "fixed top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4",
+      isSidebarOpen ? "left-[344px]" : "left-6"
+    )}>
       <motion.div
         className="flex flex-col gap-1 p-2 rounded-2xl bg-[var(--bg-card)]/80 backdrop-blur-md shadow-2xl border border-[var(--border)]"
         initial={{ x: -20, opacity: 0 }}

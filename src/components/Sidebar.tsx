@@ -28,43 +28,43 @@ function SidebarIdeaItem({ idea, isSelected, onClick }: {
       exit={{ opacity: 0, x: -12 }}
       onClick={onClick}
       className={cn(
-        "group flex items-start gap-2.5 p-2.5 rounded-xl cursor-pointer transition-all",
-        isSelected ? "bg-[#7c5cfc]/10 border-[#7c5cfc]/30" : "hover:bg-[var(--bg-hover)] border-transparent"
+        "group flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-all",
+        isSelected ? "bg-[var(--accent-glow)] border-[var(--accent)]/30" : "hover:bg-[var(--bg-hover)] border-transparent"
       )}
       style={{ border: "1px solid transparent" }}
     >
       <div
         className={cn(
-          "mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-bold transition-colors",
-          isSelected ? "bg-gradient-to-br from-[#7c5cfc] to-[#c084fc] text-white" : "bg-[var(--bg-tertiary)] text-[var(--text-muted)]"
+          "mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors shadow-sm",
+          isSelected ? "bg-gradient-to-br from-[var(--accent)] to-[var(--accent-light)] text-white" : "bg-[var(--bg-tertiary)] text-[var(--text-muted)]"
         )}
       >
-        <Lightbulb size={12} />
+        <Lightbulb size={14} />
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-semibold text-[var(--text-primary)] truncate leading-tight">
+        <p className="text-[14px] font-bold text-[var(--text-primary)] truncate leading-tight">
           {idea.title}
         </p>
-        <div className="mt-1 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] text-[var(--text-muted)] font-medium">
+        <div className="mt-1.5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] text-[var(--text-muted)] font-bold">
               ▲ {idea.votes}
             </span>
-            <span className="text-[9px] text-[var(--text-muted)] opacity-70">
+            <span className="text-[10px] text-[var(--text-muted)] font-bold opacity-70">
               💬 {commentCount}
             </span>
           </div>
-          <span className="text-[9px] text-[var(--text-muted)] italic truncate max-w-[80px]">
+          <span className="text-[10px] text-[var(--text-muted)] italic font-bold truncate max-w-[80px]">
             {idea.createdBy}
           </span>
         </div>
       </div>
 
       <ChevronRight
-        size={12}
+        size={14}
         className={cn(
-          "flex-shrink-0 mt-1.5 transition-all text-[#7c5cfc]",
+          "flex-shrink-0 mt-2 transition-all text-[var(--accent)]",
           isSelected ? "rotate-90 opacity-100" : "opacity-0 group-hover:opacity-50"
         )}
       />
@@ -106,33 +106,33 @@ export default function Sidebar() {
           animate={{ x: 0 }}
           exit={{ x: "-100%" }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed left-24 top-24 bottom-6 w-72 z-40 flex flex-col rounded-3xl bg-[var(--bg-card)] shadow-2xl border border-[var(--border)] overflow-hidden"
+          className="fixed left-0 top-0 bottom-0 w-80 z-40 flex flex-col bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl border-r border-[var(--border)] overflow-hidden"
         >
           {/* Header */}
-          <div className="p-4 border-b border-[var(--border)]">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-bold text-[var(--text-primary)]">Brainstorm Ideas</h2>
+          <div className="p-5 border-b border-[var(--border)] bg-[var(--bg-secondary)]/50">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-[16px] font-bold text-[var(--text-primary)]">Brainstorm Ideas</h2>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-1 hover:bg-[var(--bg-hover)] rounded-lg text-[var(--text-muted)] transition-colors"
+                className="p-2 hover:bg-[var(--bg-hover)] rounded-xl text-[var(--text-muted)] transition-colors"
               >
-                <X size={16} />
+                <X size={18} />
               </button>
             </div>
 
             {/* Search */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)]">
-              <Search size={13} className="text-[var(--text-muted)]" />
+            <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border)] shadow-sm">
+              <Search size={15} className="text-[var(--text-muted)]" />
               <input
                 type="text"
                 placeholder="Search ideas..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="flex-1 bg-transparent text-xs outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
+                className="flex-1 bg-transparent text-[14px] outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] font-medium"
               />
               {search && (
                 <button onClick={() => setSearch("")}>
-                  <X size={11} className="text-[var(--text-muted)]" />
+                  <X size={14} className="text-[var(--text-muted)]" />
                 </button>
               )}
             </div>

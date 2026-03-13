@@ -1,4 +1,4 @@
-import { HTMLContainer, ShapeUtil, type TLBaseShape, useEditor } from "tldraw";
+import { HTMLContainer, ShapeUtil, type TLBaseShape, Rectangle2d } from "tldraw";
 import IdeaCard from "../IdeaCard";
 import { useIdeaStore } from "@/lib/store";
 
@@ -23,10 +23,9 @@ export class IdeaShapeUtil extends ShapeUtil<any> {
   }
 
   override getGeometry(shape: IIdeaCardShape) {
-    const { Rectangle2d } = require("tldraw");
     const w = Number.isFinite(shape.props.w) ? shape.props.w : 320;
     const h = Number.isFinite(shape.props.h) ? shape.props.h : 320;
-    return new Rectangle2d({ w, h, isFilled: true });
+    return new Rectangle2d({ width: w, height: h, isFilled: true });
   }
 
   override component(shape: IIdeaCardShape) {
@@ -43,7 +42,7 @@ export class IdeaShapeUtil extends ShapeUtil<any> {
         <HTMLContainer
           id={shape.id}
           style={{
-            pointerEvents: "all",
+            pointerEvents: "auto",
             width: w,
             height: h,
             display: "flex",
